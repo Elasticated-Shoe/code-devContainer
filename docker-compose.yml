@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  code-server:
+    image: code-environment
+    container_name: code-server
+    restart: unless-stopped
+    environment:
+      - PASSWORD=password
+      - SUDO_PASSWORD=password
+    ports:
+      - "8080:8080"
+    volumes:
+      - /home/jacob/code:/home/coder/project
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.docker:/root/.docker:ro
+    networks:
+      - code-server-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  code-server-network:
+    driver: bridge
