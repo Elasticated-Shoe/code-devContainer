@@ -1,5 +1,8 @@
 FROM codercom/code-server:latest
 
+ARG GIT_EMAIL="example@example.com"
+ARG GIT_USER="example"
+
 USER root
 
 RUN apt-get update && apt-get install -y \
@@ -22,7 +25,13 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | b
 
 RUN . "$NVM_DIR/nvm.sh" && nvm install 22
 
-RUN ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
+RUN mkdir /home/coder/.ssh
+RUN chmod 700 /home/coder/.ssh
+COPY --chown=coder ./ssh_keys/id_rsa "/home/coder/.ssh/"
+COPY --chown=coder ./ssh_keys/id_rsa.pub "/home/coder/.ssh/"
+
+RUN git config --global user.email ${GIT_EMAIL}
+RUN git config --global user.name ${GIT_USER}
 
 COPY .bash_aliases /home/coder
 
