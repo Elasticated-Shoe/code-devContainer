@@ -16,6 +16,10 @@ RUN apt-get update && apt-get install -y \
     net-tools && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN wget https://github.com/gohugoio/hugo/releases/download/v0.147.9/hugo_extended_0.147.9_linux-arm64.deb
+RUN dpkg -i hugo_extended_0.147.9_linux-arm64.deb
+RUN rm hugo_extended_0.147.9_linux-arm64.deb
+
 USER coder
 
 ENV NVM_DIR=/home/coder/.nvm
