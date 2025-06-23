@@ -1,5 +1,8 @@
 FROM codercom/code-server:latest
 
+ARG GIT_EMAIL="example@example.com"
+ARG GIT_USER="example"
+
 USER root
 
 RUN apt-get update && apt-get install -y \
@@ -26,6 +29,9 @@ RUN mkdir /home/coder/.ssh
 RUN chmod 700 /home/coder/.ssh
 COPY --chown=coder ./ssh_keys/id_rsa "/home/coder/.ssh/"
 COPY --chown=coder ./ssh_keys/id_rsa.pub "/home/coder/.ssh/"
+
+RUN git config --global user.email ${GIT_EMAIL}
+RUN git config --global user.name ${GIT_USER}
 
 COPY .bash_aliases /home/coder
 

@@ -31,8 +31,10 @@ ssh-keygen -t rsa -q -f "./ssh_keys/id_rsa" -N ""
 ```
 
 # Building the Docker Image
+First change the build args for this build command to suit your needs.
+
 ```bash
-docker build -t code-environment .
+docker build --build-arg GIT_USER=example_user -t code-environment .
 ```
 
 # Run It
