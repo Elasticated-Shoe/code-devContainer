@@ -22,7 +22,10 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | b
 
 RUN . "$NVM_DIR/nvm.sh" && nvm install 22
 
-RUN ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
+RUN mkdir /home/coder/.ssh
+RUN chmod 700 /home/coder/.ssh
+COPY --chown=coder ./ssh_keys/id_rsa "/home/coder/.ssh/"
+COPY --chown=coder ./ssh_keys/id_rsa.pub "/home/coder/.ssh/"
 
 COPY .bash_aliases /home/coder
 

@@ -16,6 +16,20 @@ For my everyday use of VSCode this is perfect:
 
 Of course, I don't use VSCode everyday. But maybe now I might. *Now there are fewer blockers*.
 
+# Setup
+These are steps you should run before attempting to build the docker image
+
+## Create ssh keys
+Create the directory for the keys to go:
+```bash
+mkdir ssh_keys
+```
+
+Run this command to generate ssh keys:
+```bash
+ssh-keygen -t rsa -q -f "./ssh_keys/id_rsa" -N ""
+```
+
 # Building the Docker Image
 ```bash
 docker build -t code-environment .
